@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
-#include <sys/shm.c>
+#include <sys/shm.h>
 
 int main(int argc,char *argv[]){
     int shmid, *variable;
     key_t llave;
 
-    llave = ftok(argv[0],"K");
+    llave = ftok (argv[0], 'K' );
 
     if((shmid = shmget(llave,sizeof(int),IPC_CREAT | 0600)) == 1){
         perror("Error en shmget");
@@ -19,7 +19,6 @@ int main(int argc,char *argv[]){
         perror("Fallo shmat");
         exit(-1);
     }
-
     while(1){
         printf("\nIntroduzca m para modificar el valor de la variable, v para visualizarla y t para terminarla:\n");
 
@@ -36,7 +35,7 @@ int main(int argc,char *argv[]){
                 scanf("%d",variable);
                 break;
             default:
-                print("Se introdujo una letra incorrecta = %d\n");
+                printf("Se introdujo una letra incorrecta = %d\n");
                 break;
         }
     }
@@ -49,9 +48,4 @@ int leer_car(){
     scanf("%s",&almacen);
     sscanf(almacen,"%c",&letra);
     return letra;
-}
-
-
-        }
-    }
 }
